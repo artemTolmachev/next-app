@@ -1,27 +1,33 @@
-import { chownSync } from "fs";
+'use client';
+import {getAllPosts} from '@/services/getPosts';
+import { useEffect, useState } from "react";
 import Link from "next/link";
 
-async function getData(){
-    const response = await fetch('https://jsonplaceholder.typicode.com/posts',{
-    // next obj ceches and checs for new posts
-        next: {
-            revalidate: 60
-        }
-    });
-    return response.json();
-}
 
 
-export default async function Blog(){
-    const posts = await getData();
+
+export default  function Blog(){
+    // const posts = await getData();
+
+    const[posts, setPosts] = useState<any[]>([]);
+    const[loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        getAllPosts()
+        .then(setPosts)
+        .finally(() => setLoading(false))
+    })
     return (
-        <>
-            <h1>Blog</h1>
+    <>
+        {loading ? (<h3>Loading...</h3>) : (
+            <ul>
             {posts.map((post: any) => (
-                <li key={post.id}>
-                    <Link href={`/blog/${post.id}`}>{post.title}</Link>
-                </li>
-            ))}
-        </>
+                    <li key={post.id}>
+                        <Link href={`/blog/${post.id}`}>{post.title}</Link>
+                    </li>
+                    ))}
+            </ul>
+        )}
+    </>
     )
 }

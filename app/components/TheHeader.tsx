@@ -1,11 +1,15 @@
 import Link from 'next/link'
+import { Navigation } from './Navigation';
+const navItems = [
+  {lable: 'Home', href: '/'},
+  {lable: 'Blog', href: '/blog'},
+  {lable: 'About', href: '/about'},
+]
 
 const TheHeader = () => {
   return (
     <header>
-        <Link className = 'header-link'href="/">Home</Link>
-        <Link className = 'header-link'href="/blog">Blog</Link>
-        <Link className = 'header-link'href="/about">About</Link>
+       <Navigation navLinks= {navItems}/>
     </header>
   );
 };
