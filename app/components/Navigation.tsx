@@ -1,8 +1,6 @@
 'use client'
 import Link from "next/link";
 import {usePathname} from 'next/navigation'
-import { type } from "os";
-
 
 type NavLink = {
  lable: string;
@@ -15,7 +13,7 @@ type Props = {
 
 const Navigation = ({navLinks}: Props) => {
     const pathname = usePathname();
-    console.log(pathname)
+
     return (
     <>
         {navLinks.map(link => {
